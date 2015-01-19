@@ -1,17 +1,23 @@
-This package provides feedback (vibrate, sound) to both Cordova and Browser.
+Add subscriptions per template, and integrate with a cache manager (subs-manager).
 
-# Profile Setup
+# Setup
+In order to have a template automatically subscribe on creation, set subscriptions to a function that returns an array of subscriptions to request.
 
-    Feedback.profiles = {
-      "somethingHappened": {
-        sound: "/sounds/playSomething.mp3",
-        vibrate: [500,50,500,50,100] 
-      }
-    }
+    Template.templateWithSubscriptions.subscriptions = function(){
+      return [["TestSub"]];
+    };
 
-and to trigger it 
+to view the subscription status from a template
 
-    Feedback.provide("somethingHappened");
+    {{ subscriptionsReady }}
 
-# Cordova
-The package handles importing the necessary plugins from cordova and abstracting any differences in calling methods.
+# Cache Manager
+A cache manager isn't required, if set though it will add to the cache manager when the template is destroyed.
+
+    TemplateSubscriptions.cacheManager = new SubsManager({
+      cacheLimit: 10,
+      expireIn: 5
+    });
+
+# Issues
+Stoping subscriptions on destroyed will result in stopping existing subscriptions before subs-manager picks it up.  This results in all subscriptions happening twice.
