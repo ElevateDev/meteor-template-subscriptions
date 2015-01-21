@@ -26,5 +26,8 @@ or globally.
       expireIn: 5
     });
 
+# Small Demo
+A small demo can be found [here](templatesubs.meteor.com), and it's code [here](https://github.com/ElevateDevelopmentAndDesign/meteor-template-subscriptions-demo).
+
 # Issues
 Stoping subscriptions on destroyed will result in stopping existing subscriptions before subs-manager picks it up.  This results in all subscriptions happening twice.

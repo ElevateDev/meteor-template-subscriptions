@@ -72,7 +72,6 @@ TemplateSubscriptionsImpl.prototype._setSubscriptionState = function( view, sub,
       return;
     }
   });
-  console.log( view.template._subscriptionMap ); 
   view.template._subscriptionsReady.set( allTrue );
 }
 
@@ -100,7 +99,7 @@ TemplateSubscriptionsImpl.prototype._unsubscribeEach = function( view, subs ){
   var self = this;
   _.forEach(subs, function( sub ){
     var hash = self._calcHash( sub );
-    if( view.template._subscriptionMap[hash] ){
+    if( view.template._subscriptionMap[hash] && view.template._subscriptionMap[hash].subscription ){
       view.template._subscriptionMap[hash].subscription.stop();
       delete view.template._subscriptionMap[hash];
     }
