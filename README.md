@@ -12,7 +12,14 @@ to view the subscription status from a template
     {{ subscriptionsReady }}
 
 # Cache Manager
-A cache manager isn't required, if set though it will add to the cache manager when the template is destroyed.
+A cache manager isn't required, if set though it will add to the cache manager when the template is destroyed, or subscriptions changed. You can set it per template
+
+    Template.templateWithSubscriptions.cacheManager = new SubsManager({
+      cacheLimit: 10,
+      expireIn: 5
+    });
+
+or globally.
 
     TemplateSubscriptions.cacheManager = new SubsManager({
       cacheLimit: 10,
