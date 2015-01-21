@@ -51,7 +51,7 @@ TemplateSubscriptionsImpl.prototype._initTemplate = function(view){
   if( view.template && view.template.subscriptions ){
     view.template._subscriptionList = view.template.subscriptions();
     view.template._subscriptionMap = {};
-    view.template._subscriptionsReady = new ReactiveVar( false );
+    view.template._subscriptionsReady = new ReactiveVar( view.template._subscriptionList.length === 0 );
   }
 }
 
@@ -72,6 +72,7 @@ TemplateSubscriptionsImpl.prototype._setSubscriptionState = function( view, sub,
       return;
     }
   });
+  console.log( view.template._subscriptionMap ); 
   view.template._subscriptionsReady.set( allTrue );
 }
 
