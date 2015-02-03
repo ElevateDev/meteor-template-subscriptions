@@ -110,7 +110,7 @@ TemplateSubscriptionsImpl.prototype._cacheEach = function( view, subs ){
   var cacheManager = view.template.cacheManager ? view.template.cacheManager : self.cacheManager;
   if( cacheManager !== undefined ){
     _.forEach(subs, function( sub ){
-      cacheManager.subscribe.apply( TemplateSubscriptions.cacheManager, sub );
+      cacheManager.subscribe.apply( cacheManager, sub );
     });
   }
 };
