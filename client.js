@@ -27,21 +27,21 @@ TemplateSubscriptionsImpl.prototype.init = function(){
       TemplateSubscriptions._destroyedCallback(view);
     }
     TemplateSubscriptions._blazeFireCallbacks(view, which);
-  }
+  };
 
   var self = this; 
   Blaze.TemplateInstance.prototype.subscriptionsChanged = function(){
     var view = this.view;
     var newSubsValue = view.template.subscriptions();
-    self._unsubscribeEach( view, _.map(view.template._subscriptionMap, function(sub){ return sub.args}) );
+    self._cacheEach( view, _.map(view.template._subscriptionMap, function(sub){ return sub.args;}) );
+    self._unsubscribeEach( view, _.map(view.template._subscriptionMap, function(sub){ return sub.args;}) );
     self._subscribeEach( view, newSubsValue );
-    self._cacheEach( view, _.map(view.template._subscriptionMap, function(sub){ return sub.args}) );
-  }
+  };
 };
 
 TemplateSubscriptionsImpl.prototype._calcHash = function( sub ){
   return EJSON.stringify(sub);
-}
+};
 
 /*
  * Setup variables used in template
@@ -53,7 +53,7 @@ TemplateSubscriptionsImpl.prototype._initTemplate = function(view){
     view.template._subscriptionMap = {};
     view.template._subscriptionsReady = new ReactiveVar( view.template._subscriptionList.length === 0 );
   }
-}
+};
 
 TemplateSubscriptionsImpl.prototype._setSubscriptionState = function( view, sub, state ){
   var hash = this._calcHash( sub );
@@ -73,7 +73,7 @@ TemplateSubscriptionsImpl.prototype._setSubscriptionState = function( view, sub,
     }
   });
   view.template._subscriptionsReady.set( allTrue );
-}
+};
 
 /*
  * Helpers for subscribe list of arg lists, unsubscribe list and add to cache manager
@@ -85,7 +85,7 @@ TemplateSubscriptionsImpl.prototype._subscribeEach = function( view, subs ){
   _.forEach(subs, function( sub ){
     var hash = self._calcHash(sub);
     var subArray = sub;
-    var readyCallback = function( ){ self._setSubscriptionState( view, subArray, true ); }
+    var readyCallback = function( ){ self._setSubscriptionState( view, subArray, true ); };
     
     // clone the sub args array
     sub = sub.slice(0);
@@ -93,7 +93,7 @@ TemplateSubscriptionsImpl.prototype._subscribeEach = function( view, subs ){
     sub.push( readyCallback );
     template._subscriptionMap[hash].subscription = Meteor.subscribe.apply( Meteor, sub );
   });
-}
+};
 
 TemplateSubscriptionsImpl.prototype._unsubscribeEach = function( view, subs ){
   var self = this;
@@ -104,7 +104,7 @@ TemplateSubscriptionsImpl.prototype._unsubscribeEach = function( view, subs ){
       delete view.template._subscriptionMap[hash];
     }
   });
-}
+};
 
 TemplateSubscriptionsImpl.prototype._cacheEach = function( view, subs ){
   var cacheManager = view.template.cacheManager ? view.template.cacheManager : self.cacheManager;
@@ -113,7 +113,7 @@ TemplateSubscriptionsImpl.prototype._cacheEach = function( view, subs ){
       cacheManager.subscribe.apply( TemplateSubscriptions.cacheManager, sub );
     });
   }
-}
+};
 
 /*
  * Callbacks on blaze templates
@@ -127,14 +127,14 @@ TemplateSubscriptionsImpl.prototype._createdCallback = function(view){
   if( view.template && view.template.subscriptions ){
     this._subscribeEach(view,view.template._subscriptionList);
   }
-}
+};
 
 TemplateSubscriptionsImpl.prototype._destroyedCallback = function(view){
   if( view.template && view.template._subscriptions ){
     this._cacheEach( view );
-    this._unsubscribeEach(view, _.map(view.template._subscriptionMap,function(sub){return sub.args}));
+    this._unsubscribeEach(view, _.map(view.template._subscriptionMap,function(sub){return sub.args;}));
   }
-}
+};
 
 TemplateSubscriptions = new TemplateSubscriptionsImpl();
 TemplateSubscriptions.init();
