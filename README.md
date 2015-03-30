@@ -1,3 +1,5 @@
+This package is not compatible with >=meteor@1.4.0 please remove to upgrade.  Template level subscriptions are now avaliable as part of Blaze.
+
 Add subscriptions per template, and integrate with a cache manager (subs-manager).
 
 # Setup

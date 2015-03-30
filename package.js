@@ -1,7 +1,7 @@
 Package.describe({
   name: 'elevatedevdesign:template-subscriptions',
   summary: 'Template based subscriptions for meteor',
-  version: '0.0.2',
+  version: '0.0.3',
   git: 'https://github.com/ElevateDevelopmentAndDesign/meteor-template-subscriptions'
 });
 

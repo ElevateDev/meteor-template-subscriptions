@@ -1,3 +1,5 @@
+console.error("elevatedevdesign:template-subscriptions is not compatible with >= meteor@1.4.0 please remove to upgrade");
+
 TemplateSubscriptionsImpl = function(){
   
 };
